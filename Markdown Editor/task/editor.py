@@ -26,7 +26,7 @@
 #         print(f"Available formatters:", *FORMATTERS)
 #         print(f"Special commands:", *SP_COMMANDS)
 
-# ----------------------- 3 --------------------------------------------
+# ----------------------- 3-4 --------------------------------------------
 FORMATTERS = ['plain', 'bold', 'italic', 'header', 'link', 'inline-code', 'new-line',
               'ordered-list', 'unordered-list']
 SP_COMMANDS = ['!help', '!done']
@@ -81,7 +81,7 @@ def _help():
     print(f"Special commands:", *SP_COMMANDS)
 
 
-def list_():
+def unordered_list():
     while True:
         try:
             num_of_rows = int(input("Number of rows: "))
@@ -91,17 +91,34 @@ def list_():
             print("The number of rows should be greater than zero")
         else:
             break
-    temp_list = []
+    # temp_list = []
     # for i in range(1, num_of_rows + 1):
     #     temp_list.append(input(f"Row #{i}: "))
-    temp_list = [f"Row #{i}: " for i in range(1, num_of_rows + 1)]
+    # temp_list = [input(f"Row #{i}: ") for i in range(1, num_of_rows + 1)]
+    temp_list = list(map(lambda i: input(f"Row #{i}: "), range(1, num_of_rows + 1)))
+    upd_list = list(map(lambda i: f"* {i}\n", temp_list))
+    output_str = ''.join(upd_list)
+    output.append(output_str)
 
-    output.append(temp_list)
+
+def ordered_list():
+    while True:
+        try:
+            num_of_rows = int(input("Number of rows: "))
+            if num_of_rows <= 0:
+                raise TypeError
+        except TypeError:
+            print("The number of rows should be greater than zero")
+        else:
+            break
+    temp_list = [f"{i}. {input(f'Row #{i}: ')}\n" for i in range(1, num_of_rows + 1)]
+    output_str = ''.join(temp_list)
+    output.append(output_str)
 
 
 functions = {'plain': plain, 'bold': bold, 'italic': italic, 'header': header, 'link': link,
-             'inline-code': inline_code, 'new-line': new_line, 'ordered-list': list_,
-             'unordered-list': list_}
+             'inline-code': inline_code, 'new-line': new_line, 'ordered-list': ordered_list,
+             'unordered-list': unordered_list}
 
 global output
 output = []
