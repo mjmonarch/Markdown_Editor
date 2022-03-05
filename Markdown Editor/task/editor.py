@@ -26,7 +26,7 @@
 #         print(f"Available formatters:", *FORMATTERS)
 #         print(f"Special commands:", *SP_COMMANDS)
 
-# ----------------------- 3-4 --------------------------------------------
+# ----------------------- 3-4-5 --------------------------------------------
 FORMATTERS = ['plain', 'bold', 'italic', 'header', 'link', 'inline-code', 'new-line',
               'ordered-list', 'unordered-list']
 SP_COMMANDS = ['!help', '!done']
@@ -81,6 +81,11 @@ def _help():
     print(f"Special commands:", *SP_COMMANDS)
 
 
+def done():
+    with open('output.md', 'w', encoding='utf-8') as writer:
+        writer.write(''.join(output))
+
+
 def unordered_list():
     while True:
         try:
@@ -130,6 +135,7 @@ while True:
         print("Unknown formatting type or command")
         continue
     if formatter == '!done':
+        done()
         break
     if formatter == '!help':
         _help()
