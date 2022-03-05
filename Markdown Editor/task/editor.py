@@ -27,7 +27,8 @@
 #         print(f"Special commands:", *SP_COMMANDS)
 
 # ----------------------- 3 --------------------------------------------
-FORMATTERS = ['plain', 'bold', 'italic', 'header', 'link', 'inline-code', 'new-line']
+FORMATTERS = ['plain', 'bold', 'italic', 'header', 'link', 'inline-code', 'new-line',
+              'ordered-list', 'unordered-list']
 SP_COMMANDS = ['!help', '!done']
 
 
@@ -80,8 +81,27 @@ def _help():
     print(f"Special commands:", *SP_COMMANDS)
 
 
+def list_():
+    while True:
+        try:
+            num_of_rows = int(input("Number of rows: "))
+            if num_of_rows <= 0:
+                raise TypeError
+        except TypeError:
+            print("The number of rows should be greater than zero")
+        else:
+            break
+    temp_list = []
+    # for i in range(1, num_of_rows + 1):
+    #     temp_list.append(input(f"Row #{i}: "))
+    temp_list = [f"Row #{i}: " for i in range(1, num_of_rows + 1)]
+
+    output.append(temp_list)
+
+
 functions = {'plain': plain, 'bold': bold, 'italic': italic, 'header': header, 'link': link,
-             'inline-code': inline_code, 'new-line': new_line}
+             'inline-code': inline_code, 'new-line': new_line, 'ordered-list': list_,
+             'unordered-list': list_}
 
 global output
 output = []
